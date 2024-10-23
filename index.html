@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NАРКО.ДІЯ | Цифрова платформа</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes glitch {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px)
+            }
+
+            50% {
+                transform: translateY(-15px)
+            }
+
+            100% {
+                transform: translateY(0px)
+            }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        .gradient-dark {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: scale(1.02) rotate(-1deg);
+        }
+
+               /* Анімація для мобільного меню */
+           /* Анімація для мобільного меню */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%); /* Меню приховане за замовчуванням */
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0); /* Відкривається меню при натисканні */
+        }
+
+        /* Стилі для мобільного меню */
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none; /* Сховати мобільне меню на великих екранах */
+            }
+        }
+
+        /* Кастомний скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3B82F6;
+            border-radius: 4px;
+        }
+
+        .testimonial-slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Стилі для стрілок */
+        .slider-arrow {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(59, 130, 246, 0.7); /* Напівпрозорий синій фон */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background-color: rgba(59, 130, 246, 1); /* Яскравий синій фон при наведенні */
+        }
+
+        .slider-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+
+        .testimonial-container {
+            position: relative;
+            padding: 0 50px; /* Додатковий відступ для стрілок */
+        }
+
+        /* Стилі для мобільного меню */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body class="gradient-dark text-white min-h-screen">
+    <!-- Мобільне меню -->
+    <!-- Мобільне меню -->
+    <div
+        class="mobile-menu fixed top-0 left-0 h-full w-4/5 bg-gray-800 z-50 md:hidden transition-transform duration-300 ease-in-out">
+        <div class="p-6">
+            <div class="text-2xl font-black mb-8">NАРКО.ДІЯ</div>
+            <nav class="space-y-6">
+                <a href="#" class="block text-lg hover:text-blue-400">ГОЛОВНА</a>
+                <a href="#services" class="block text-lg hover:text-blue-400">ПОСЛУГИ</a>
+                <a href="#doctors" class="block text-lg hover:text-blue-400">ЛІКАРІ</a>
+                <a href="#testimonals" class="block text-lg hover:text-blue-400">ВІДГУКИ</a>
+                <a href="#contact" class="block text-lg hover:text-blue-400">КОНТАКТИ</a>
+                <button class="w-full bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-lg font-bold">
+                    ЗАПИСАТИСЬ
+                </button>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Навігація -->
+    <nav class="border-b border-blue-500/30 backdrop-blur-md fixed w-full z-40">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-20">
+                <!-- Логотип -->
+                <div class="flex items-center">
+                    <div
+                        class="text-3xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                        NАРКО.ДІЯ
+                    </div>
+                </div>
+    
+                <!-- Десктопне меню -->
+                <div class="hidden md:flex items-center space-x-8 text-lg font-medium">
+                    <a href="#" class="hover:text-blue-400 transition-colors">ГОЛОВНА</a>
+                    <a href="#" class="hover:text-blue-400 transition-colors">ПОСЛУГИ</a>
+                    <a href="#" class="hover:text-blue-400 transition-colors">ЛІКАРІ</a>
+                    <a href="#" class="hover:text-blue-400 transition-colors">ВІДГУКИ</a>
+                    <button
+                        class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-all">
+                        Швидкий запис
+                    </button>
+                </div>
+    
+                <!-- Кнопка мобільного меню -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-white" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Головний банер -->
+    <div class="pt-32 pb-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center">
+                <h1 class="text-4xl md:text-7xl font-black mb-8 tracking-tight glitch-hover leading-tight">
+                    ЛІКУВАННЯ <span class="text-blue-500">ЗАЛЕЖНОСТІ</span><br>
+                    В ЦИФРОВОМУ ФОРМАТІ
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl">
+                    Отримайте професійну допомогу від сертифікованих спеціалістів через єдину цифрову платформу
+                </p>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
+                    <button
+                        class="bg-blue-600 hover:bg-blue-500 px-8 md:px-12 py-4 md:py-5 rounded-xl font-bold text-lg md:text-xl transform hover:scale-105 transition-all uppercase tracking-wider">
+                        Розпочати лікування
+                    </button>
+                    <button
+                        class="bg-gray-800 hover:bg-gray-700 px-8 md:px-12 py-4 md:py-5 rounded-xl font-bold text-lg md:text-xl transform hover:scale-105 transition-all uppercase tracking-wider">
+                        Консультація 24/7
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Переваги -->
+    <div class="py-20 px-4 bg-gray-900/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tight text-center">
+                ЧОМУ <span class="text-blue-500">МИ?</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Конфіденційність</h3>
+                    <p class="text-gray-400">Повна анонімність та захист персональних даних на рівні державних
+                        стандартів</p>
+                </div>
+
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Досвід</h3>
+                    <p class="text-gray-400">15+ років успішної практики та тисячі врятованих життів</p>
+                </div>
+
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Швидкість</h3>
+                    <p class="text-gray-400">Термінова допомога та підтримка 24/7 без вихідних</p>
+                </div>
+
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Команда</h3>
+                    <p class="text-gray-400">Кваліфіковані спеціалісти з міжнародними сертифікатами</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Етапи лікування -->
+    <div class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tight text-center">
+                ЕТАПИ <span class="text-blue-500">ЛІКУВАННЯ</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        1
+                    </div>
+                    <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                        <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Діагностика</h3>
+                        <p class="text-gray-400">Комплексна оцінка стану пацієнта та розробка індивідуального плану
+                            лікування.</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        2
+                    </div>
+                    <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                        <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Лікування</h3>
+                        <p class="text-gray-400">Комплексний курс терапії під наглядом кваліфікованих лікарів.</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        3
+                    </div>
+                    <div class="bg-gray-900/50 p-8 rounded-2xl border border-blue-500/30 card-hover">
+                        <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Реабілітація</h3>
+                        <p class="text-gray-400">Підтримка та відновлення після лікування з індивідуальним підходом.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Секція Послуги -->
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tight text-center">
+                НАШІ <span class="text-blue-500">ПОСЛУГИ</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Консультація</h3>
+                    <p class="text-gray-400">Отримайте професійну консультацію від сертифікованих наркологів для оцінки
+                        вашого стану.</p>
+                </div>
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Тестування</h3>
+                    <p class="text-gray-400">Надійне тестування на наявність наркотичних речовин із повною конфіденційністю.
+                    </p>
+                </div>
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Реабілітація</h3>
+                    <p class="text-gray-400">Підтримка на всіх етапах лікування та довготривала реабілітаційна програма.</p>
+                </div>
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Сімейна терапія</h3>
+                    <p class="text-gray-400">Психологічна підтримка для сімей, що стикаються з проблемою залежності.</p>
+                </div>
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m-6 4V7a4 4 0 118 0v4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Анонімна підтримка</h3>
+                    <p class="text-gray-400">Конфіденційні програми підтримки для пацієнтів, що прагнуть зберегти
+                        приватність.</p>
+                </div>
+    
+                <!-- Карта послуги -->
+                <div
+                    class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-wider">Стаціонарне лікування</h3>
+                    <p class="text-gray-400">Повний спектр медичних послуг для пацієнтів, що потребують постійного нагляду.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section class="py-20 px-4 bg-gray-900">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tight text-center">
+                    НАШІ <span class="text-blue-500">ЛІКАРІ</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif"
+                            alt="Лікар">
+                        <h3 class="text-2xl font-bold mb-2">Др. Олександр Коваленко</h3>
+                        <p class="text-blue-500 mb-4">Нарколог</p>
+                        <p class="text-gray-400">Понад 15 років досвіду в лікуванні залежностей та реабілітації пацієнтів.</p>
+                    </div>
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif" alt="Лікар">
+                        <h3 class="text-2xl font-bold mb-2">Др. Наталія Сидоренко</h3>
+                        <p class="text-blue-500 mb-4">Психолог</p>
+                        <p class="text-gray-400">Спеціаліст із психотерапії залежностей та сімейної підтримки.</p>
+                    </div>
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif" alt="Лікар">
+                        <h3 class="text-2xl font-bold mb-2">Др. Ігор Петренко</h3>
+                        <p class="text-blue-500 mb-4">Психіатр</p>
+                        <p class="text-gray-400">Експерт у сфері психічного здоров'я, допомагає пацієнтам у боротьбі з
+                            залежностями.</p>
+                    </div>
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif" alt="Лікар">
+                        <h3 class="text-2xl font-bold mb-2">Др. Олена Бондаренко</h3>
+                        <p class="text-blue-500 mb-4">Терапевт</p>
+                        <p class="text-gray-400">Забезпечує загальну медичну допомогу пацієнтам на всіх етапах лікування.</p>
+                    </div>
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif" alt="Лікар">>
+                        <h3 class="text-2xl font-bold mb-2">Др. Андрій Лисенко</h3>
+                        <p class="text-blue-500 mb-4">Реабілітолог</p>
+                        <p class="text-gray-400">Спеціалізується на відновленні пацієнтів після лікування залежностей.</p>
+                    </div>
+        
+                    <!-- Карта лікаря -->
+                    <div
+                        class="bg-gray-800 p-8 rounded-2xl border border-blue-500/30 shadow-lg transform hover:scale-105 transition-transform duration-300 text-center">
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 object-cover" src="D1.avif" alt="Лікар">
+                        <h3 class="text-2xl font-bold mb-2">Др. Марина Ващенко</h3>
+                        <p class="text-blue-500 mb-4">Психотерапевт</p>
+                        <p class="text-gray-400">Допомагає пацієнтам впоратися з психологічними аспектами залежності.</p>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+    <!-- Секція Відгуки -->
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tight">
+                ВІДГУКИ <span class="text-blue-500">ПАЦІЄНТІВ</span>
+            </h2>
+    
+            <!-- Слайдер відгуків -->
+            <div class="testimonial-container relative">
+                <!-- Відгук 1 -->
+                <div class="testimonial-slide active">
+                    <p class="text-lg italic text-gray-400 mb-6">"Завдяки фахівцям NАРКО.ДІЯ, я зміг повернутися до
+                        нормального життя. Дуже вдячний за підтримку."</p>
+                    <h3 class="text-xl font-bold text-white">Олександр Іванов</h3>
+                </div>
+    
+                <!-- Відгук 2 -->
+                <div class="testimonial-slide">
+                    <p class="text-lg italic text-gray-400 mb-6">"Найкращі лікарі, які дійсно допомогли мені подолати
+                        залежність. Дуже рекомендую їхні послуги."</p>
+                    <h3 class="text-xl font-bold text-white">Наталія Сидоренко</h3>
+                </div>
+    
+                <!-- Відгук 3 -->
+                <div class="testimonial-slide">
+                    <p class="text-lg italic text-gray-400 mb-6">"Дуже професійний підхід і повна підтримка. Я більше не
+                        боюся свого майбутнього завдяки NАРКО.ДІЯ."</p>
+                    <h3 class="text-xl font-bold text-white">Ігор Петренко</h3>
+                </div>
+    
+                <!-- Стрілки -->
+                <div class="absolute inset-y-0 left-0 flex items-center">
+                    <button class="slider-arrow ml-4" onclick="prevSlide()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center">
+                    <button class="slider-arrow mr-4" onclick="nextSlide()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Секція Форма запису -->
+        <section class="py-20 px-4 bg-gray-900">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-black mb-12 tracking-tight">
+                    ЗАПИС НА <span class="text-blue-500">КОНСУЛЬТАЦІЮ</span>
+                </h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    Залиште свої дані, і ми зв'яжемося з вами для запису на консультацію або уточнення деталей.
+                </p>
+        
+                <!-- Форма -->
+                <form action="#" method="POST" class="bg-gray-800 p-8 rounded-lg shadow-lg space-y-6">
+                    <div>
+                        <label for="name" class="block text-left text-gray-400 mb-2">Ваше ім'я</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+        
+                    <div>
+                        <label for="email" class="block text-left text-gray-400 mb-2">Електронна пошта</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+        
+                    <div>
+                        <label for="phone" class="block text-left text-gray-400 mb-2">Номер телефону</label>
+                        <input type="tel" id="phone" name="phone" required
+                            class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+        
+                    <div>
+                        <label for="message" class="block text-left text-gray-400 mb-2">Повідомлення (необов'язково)</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+        
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-500 p-3 rounded-lg font-bold text-white uppercase tracking-wider transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Записатись
+                    </button>
+                </form>
+            </div>
+        </section>
+    
+
+        <!-- Футер -->
+        <footer class="bg-gray-800 py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+        
+                    <!-- Логотип та авторські права -->
+                    <div class="text-center md:text-left mb-6 md:mb-0">
+                        <h2 class="text-2xl font-black tracking-tighter text-white">
+                            NАРКО.ДІЯ
+                        </h2>
+                        <p class="text-gray-400 mt-2">&copy; 2024 Наркологічна Допомога. Всі права захищені.</p>
+                    </div>
+        
+
+                    <!-- Посилання -->
+                    <div class="flex space-x-8 text-gray-400">
+                        <a href="#" class="hover:text-blue-500">Контакти</a>
+                        <a href="#" class="hover:text-blue-500">Політика конфіденційності</a>
+                        <a href="#" class="hover:text-blue-500">Умови використання</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Автоматичне перемикання кожні 5 секунд
+        setInterval(nextSlide, 5000);
+    </script>
+
+</html>
